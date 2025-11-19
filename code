@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Check if argument given
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 cpu|mem"
+    exit 1
+fi
+
+# If user chooses CPU
+if [ "$1" = "cpu" ]; then
+    echo "Top 5 CPU consuming processes:"
+    # ps command sorted by CPU
+    ps -eo pid,user,%cpu,%mem,comm --sort=-%cpu | head -n 6
+    exit 0
+fi
+
+# If user chooses Memory
+if [ "$1" = "mem" ]; then
+    echo "Top 5 Memory consuming processes:"
+    # ps command sorted by Memory
+    ps -eo pid,user,%cpu,%mem,comm --sort=-%mem | head -n 6
+    exit 0
+fi
+
+# If user gives invalid argument
+echo "Invalid option. Use: cpu or mem"
